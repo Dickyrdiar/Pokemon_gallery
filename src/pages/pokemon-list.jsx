@@ -1,7 +1,8 @@
 import React, { useCallback, useEffect, useState } from "react"
 import { useNavigate } from "react-router-dom"
 import styled from "styled-components"
-import { ReactComponent as BackIcon } from '../assets/icons/back.svg'
+import BackIconBlack from '../assets/icons/back.svg'
+import Menu from '../assets/icons/menu.svg'
 const itemPerpage = 10
 
 export const PokemonList = () => {
@@ -36,7 +37,11 @@ export const PokemonList = () => {
     <>
       <Main>
         <Header>
-            <div className="label">Pokemon</div>
+          <IconHeader>
+            <div><img src={BackIconBlack} /></div>
+            <div><img src={Menu} /></div>
+          </IconHeader>
+          <div className="label">Pokemon</div>
         </Header>
         <Wrapper>
           <Container>
@@ -69,16 +74,8 @@ const Main = styled.div`
 
 const IconHeader = styled.div`
   display: flex;
-  width: 60px;
-  height: 60px;
-  align-items: center;
-  justify-content: center;
-  border-radius: 1px;
-  margin: 4px;
-  > img {
-    width: 55px;
-    height: 55px;
-  }
+  align-items: flex-start;
+  justify-content: space-between;
 `
 
 const Header = styled.header`
@@ -127,10 +124,10 @@ const Card = styled.div`
   overflow: hidden;
   cursor: pointer;
   background-color: ${type => {
-    if (type.type === 'fire') return '#FF5733';
-    if (type.type === 'water') return '#3498DB';
-    if (type.type === 'grass') return '#2ECC71';
-    // Add more types and colors as needed
+    if (type.type === 'Fire') return '#FF5733';
+    if (type.type === 'Water') return '#3498DB';
+    if (type.type === 'Grass') return '#2ECC71';
+   
     return '#ccc'; // Default color
   }};
   gap: 20px;

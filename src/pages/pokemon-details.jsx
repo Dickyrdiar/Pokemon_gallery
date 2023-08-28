@@ -2,6 +2,8 @@ import React, { useEffect, useState } from "react"
 import { useParams } from "react-router-dom"
 import styled from "styled-components"
 // import { ReactComponent as Back } from '../assets/icons/back.svg'
+import BackArrow from '../assets/icons/backWhite.svg'
+import Fav from '../assets/icons/love.svg'
 
 const tabs = [
   { id: 1, label: 'Stock', content: 'Content for Tab 1' },
@@ -15,10 +17,17 @@ export const PokemonDetails = () => {
   const [activeTab, setActiveTab] = useState(tabs[0].id)
 
   const ResponseDetailPokemon = JSON.parse(localStorage.getItem('pokemnon'))
-  console.log("check response", ResponseDetailPokemon.image)
+  console.log("check response", ResponseDetailPokemon.type[0])
 
   const handleClickTab = (tabId) => {
     setActiveTab(tabId)
+  }
+
+  const FunctionConvert = (data) => {
+    return {
+      label: data.label,
+      content: data.cotent
+    }
   }
   
   // fetch(`${process.env.API_URL}/${pokemonId}`)
@@ -31,16 +40,21 @@ export const PokemonDetails = () => {
     .then((data) => setResponseDetail(data))
   }, [])
 
-  console.log('pokemonId', pokemonId, responseDetail)
+  console.log('pokemonId', ResponseDetailPokemon.base)
 
   return (
     <Main>
-      <Header>
-        {/* <div>PokemonDetails</div> */}
-       {/* <Back /> */}
-      </Header>
+      <CardWrapper type={ResponseDetailPokemon.type[0]}>
+        <ArrowStyledBack href={'/pokemons'}>
+         <div>
+          <img src={BackArrow} />
+         </div>
 
-      <CardWrapper>
+         <div>
+          <img src={Fav} />
+         </div>
+        </ArrowStyledBack>
+
         <div className="icon">
           <img src={`${process.env.API_URL}/${ ResponseDetailPokemon.image}`} alt={ResponseDetailPokemon.name.english} />
         </div>
@@ -85,7 +99,7 @@ const Main = styled.div`
 `
 
 const Header = styled.header`
-  background-color: #ffff;
+  /* background-color: #ccc; */
   padding: 16px;
   align-items: center;
   justify-content: center;
@@ -101,11 +115,11 @@ const CardWrapper  = styled.div`
   width: 375px;
   height: 412px;
   background-color: ${type => {
-    if (type.type === 'fire') return '#FF5733';
-    if (type.type === 'water') return '#3498DB';
-    if (type.type === 'grass') return '#2ECC71';
+    if (type.type === 'Fire') return '#FF5733';
+    if (type.type === 'Water') return '#3498DB';
+    if (type.type === 'Grass') return '#2ECC71';
     // Add more types and colors as needed
-    return '#ccc'; // Default color
+    // return '#ccc'; // Default color
   }};
 
   >div.icon {
@@ -136,6 +150,7 @@ const CardWrapperCaption = styled.div`
   height: 355px;
   border-top-left-radius: 20px;
   border-top-right-radius: 20px;
+  height: 52%;
 `
 
 const TabWrapper = styled.div`
@@ -161,6 +176,22 @@ const TabContent = styled.div`
   margin-top: 20px;
 `
 
-const ArrowStyledBakc = styled.a`
-  
+const ArrowStyledBack = styled.a`
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  text-decoration: none;
+  transition: color 0.3s;
+  /* background-color: #ccc; */
+
+  &:hover {
+    color: black;
+  }
+`
+
+const BackArrowIcon = styled.svg`
+  height: 20px;
+  width: 20px;
+  fill: currentColor;
+  margin-right: 8px;
 `
